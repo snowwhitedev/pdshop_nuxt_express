@@ -1,0 +1,7 @@
+.gitignore
+sandbox/
+migrations/
+.circleci/
+.nuxt/
+.vscode/
+node_modules/
