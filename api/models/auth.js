@@ -17,7 +17,6 @@ exports.getPasswordHash = (password) => {
 };
 
 exports.getJWTToken = (user) => {
-  console.log("[user]", user, JWT_SECRET, JWT_AUTH_EXPIRED)
   const { store_id, user_id, email, user_type } = user;
   const token = JWT.sign({
     user_id,
