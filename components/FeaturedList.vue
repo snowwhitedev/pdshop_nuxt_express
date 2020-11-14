@@ -58,49 +58,6 @@
           :selected="item === selectedPickup"
           @select="updateSelectedPickup"
         />
-        <!-- <Featured
-          v-else-if="selectedMode == 'pickups'"
-          :selected="item == selectedPickup"
-          class="pickup"
-        >
-          <div
-            class="columns is-mobile"
-            @click="updateSelectedPickup(item)"
-          >
-            <div class="has-background-light column box is-3">
-              <div class="has-text-centered">
-                <p
-                  class="has-text-weight-bold is-capitalized is-size-5"
-                >
-                  {{ getDayOfTheWeekAbr(item.day_of_week) }}
-                </p>
-                <p class="is-size-7">
-                  {{
-                    `${item.start_time} - ${item.end_time}`
-                  }}
-                </p>
-              </div>
-            </div>
-            <div class="column">
-              <div>
-                <p class="is-size-6 has-text-weight-bold is-capitalized">
-                  {{ item.title }}
-                </p>
-                <div class="is-size-7 has-text-grey">
-                  <b-icon
-                    pack="fas"
-                    icon="map-marker-alt"
-                    size="is-small"
-                  />
-                  {{
-                    `${item.location.address}, ${item.location.city}, ${item.location.state}, ${item.location.country}`
-                  }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </Featured> -->
-
         <Featured
           v-else-if="selectedMode == 'addons'"
           :selected="selectedAddons.includes(item)"
@@ -221,10 +178,6 @@ export default {
         hour: '2-digit',
         minute: '2-digit'
       });
-    },
-    getDayOfTheWeekAbr (dayOfTheWeek) {
-      return "Unknown";
-      // return dayOfTheWeek.substring(0, 3);
     }
   }
 };

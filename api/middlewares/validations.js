@@ -1,7 +1,6 @@
 const Joi = require('@hapi/joi');
 
 const { USERS_TYPES } = require('../../nuxt.config').privateRuntimeConfig;
-// import { WEEK_DAYS } from "../../store/contants"; 
 const { WEEK_DAYS } = require('../../store/contants');
 
 exports.validateUsersRegisterAuth = async (req, _res, next) => {
@@ -199,8 +198,7 @@ exports.validatePaginationQueryArgs = async (req, _, next) => {
 };
 
 exports.validatePickupQueryArgs = async (req, _, next) => {
-  // validate limit and offset
-  // return next();
+  // validate PickupQueryArgs
   const schema = Joi.object({
     name: Joi.string().required(),
     title: Joi.string().required(),
@@ -230,7 +228,7 @@ exports.validatePickupQueryArgs = async (req, _, next) => {
   try {
     await schema.validateAsync(req.body);
     if (!validateDaysOfWeek(req.body.days_of_week)) {
-      return next(Error({ message: 'Days of week error'}));
+      throw Error({ message: `Unkown day of the week, can be only one of ${WEEK_DAYS}`});
     }
     return next();
   } catch (error) {

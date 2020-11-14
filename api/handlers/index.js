@@ -10,7 +10,6 @@ const { getJWTToken } = require('../models/auth');
 const {
   getListOfPickupsByStoreAndProductId,
   createPickup,
-  createMDPickup,
   getListOfPickupsByStore,
   getPartialListOfPickupsByStore,
   deletePickupRecord,
@@ -166,16 +165,6 @@ exports.handleGetPickupById = async (req, res) => {
 };
 
 exports.handleCreatePickup = async (req, res) => {
-  try {
-    req.body.location = JSON.stringify(req.body.location);
-    const pickup = await createPickup(req.body);
-    return res.status(200).json({ pickup });
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal Error' + error });
-  }
-};
-
-exports.handleCreateMDPickup = async (req, res) => {
   try {
     req.body.location = JSON.stringify(req.body.location);
     req.body.days_of_week = JSON.stringify(req.body.days_of_week);

@@ -49,7 +49,6 @@ const {
   handleCreateNewStore,
   isSlugUnique,
   handleCreatePickup,
-  handleCreateMDPickup,
   handleGetPartialListOfPickups,
   handleUpdateStoreRecord,
   handleUpdatePickupRecord,
@@ -152,7 +151,7 @@ router.post(
   '/stores/:store_id/mdpickups',
   isUserMerchantOnStore,
   validatePickupQueryArgs,
-  handleCreateMDPickup
+  handleCreatePickup
 );
 
 // update pickup record
