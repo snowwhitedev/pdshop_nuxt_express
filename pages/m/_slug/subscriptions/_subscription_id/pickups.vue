@@ -42,6 +42,7 @@
 import { mapState, mapGetters } from 'vuex';
 import FeaturedList from '~/components/FeaturedList';
 import SubscriptionSteps from '~/components/SubscriptionSteps';
+import { WEEK_DAYS } from '@/store/contants';
 
 export default {
   layout: 'shopping',
@@ -77,6 +78,7 @@ export default {
   methods: {
     updateSelection (payload) {
       this.selectedPickup = payload.pickup;
+      console.log("[selected]", this.selectedPickup);
     },
     async getSubscriptionByStore () {
       this.isLoading = true;
@@ -128,10 +130,8 @@ export default {
       }
     },
     sortItems (a, b) {
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-
-      const a_index = days.indexOf(a.day_of_week);
-      const b_index = days.indexOf(b.day_of_week);
+      const a_index = WEEK_DAYS.indexOf(a.day_of_week);
+      const b_index = WEEK_DAYS.indexOf(b.day_of_week);
 
       return a_index < b_index ? 0 : 1;
     },
@@ -140,7 +140,7 @@ export default {
       try {
         const response = await this.$axios.$get(
           `${this.$config.API_URL}/shop/pickups/singleProduct/${this.merchant.store_id}?product_id=${this.subscription.product_id}`);
-
+        
         this.pickups = response.pickups;
         this.setSavedPickup(this.subscription.pickup_id);
       } catch (e) {

@@ -11,7 +11,8 @@ const {
   validateCouponFields,
   validateUserMerchantRegistration,
   validateUniqueSlug,
-  validatePaginationQueryArgs
+  validatePaginationQueryArgs,
+  validatePickupQueryArgs
 } = require('../../middlewares/index').validations;
 
 const {
@@ -150,6 +151,7 @@ router.post(
 router.post(
   '/stores/:store_id/mdpickups',
   isUserMerchantOnStore,
+  validatePickupQueryArgs,
   handleCreateMDPickup
 );
 

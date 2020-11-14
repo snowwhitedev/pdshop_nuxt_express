@@ -16,16 +16,6 @@ exports.createPickup = async (payload) => {
   return response.rows[0];
 };
 
-exports.createMDPickup = async (payload) => {
-  const sqlQuery = knex(PICKUPS_TABLE)
-    .insert(payload)
-    .returning('*')
-    .toString();
-
-  const response = await runQuery(sqlQuery);
-  return response.rows;
-}
-
 exports.updatePickupRecord = async (pickupId, updateFields) => {
   const sqlQuery = knex(PICKUPS_TABLE)
     .update(updateFields)

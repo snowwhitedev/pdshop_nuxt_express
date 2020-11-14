@@ -258,7 +258,7 @@
               aria-role="dialog"
               aria-modal
             >
-              <pick-days v-model="form.days_of_week" @close="showWeekdays = !showWeekdays" />
+              <pick-days v-model="selectedDays" @close="showWeekdays = !showWeekdays" />
             </b-modal>
             <div class="col-span-6 flex flex-row w-full justify-between px-3">
               <div class="w-full">
@@ -370,8 +370,7 @@ export default {
     errorMessage: '',
     isLoading: false,
     incomplete: false,
-    selected: null,
-    options: ['list', 'of', 'options']
+    selectedDays: []
   }),
   computed: {
     ...mapState(['token']),
@@ -437,7 +436,7 @@ export default {
           this.form.location.state === '' ||
           this.form.location.country === '' ||
           this.form.location.city === '' ||
-          this.form.days_of_week.length === 0
+          this.selectedDays.length === 0
       ) {
         this.error = true;
         this.errorMessage = 'All form fields are required';
@@ -471,6 +470,13 @@ export default {
             });
           }
           this.form.store_id = this.storeId
+          this.form.days_of_week = this.selectedDays.map((item) => {
+            return {
+              day_of_week: item,
+              start_time: this.form.start_time,
+              end_time: this.form.end_time
+            }
+          });
           await this.$axios.post(
             `/onboarding/stores/${this.storeId}/mdpickups`,
             this.form, {
@@ -501,6 +507,7 @@ export default {
           this.form.title = '';
           this.form.description = '';
           this.form.days_of_week = [];
+          this.selectedDays = [];
           this.form.start_time = '';
           this.form.end_time = '';
           this.form.location.zip = '';

@@ -52,8 +52,13 @@
             </div>
           </div>
         </Featured>
-
-        <Featured
+        <pickup-item
+          v-else-if="selectedMode == 'pickups'"
+          :item="item"
+          :selected="item === selectedPickup"
+          @select="updateSelectedPickup"
+        />
+        <!-- <Featured
           v-else-if="selectedMode == 'pickups'"
           :selected="item == selectedPickup"
           class="pickup"
@@ -94,7 +99,7 @@
               </div>
             </div>
           </div>
-        </Featured>
+        </Featured> -->
 
         <Featured
           v-else-if="selectedMode == 'addons'"
@@ -141,10 +146,12 @@
 
 <script>
 import Featured from './Featured';
+import PickupItem from './Pickup/PickupItem.vue';
 export default {
   name: 'FeaturedList',
   components: {
-    Featured
+    Featured,
+    PickupItem
   },
   props: {
     // Array of cards that must be showed on screen
@@ -216,17 +223,14 @@ export default {
       });
     },
     getDayOfTheWeekAbr (dayOfTheWeek) {
-      return dayOfTheWeek.substring(0, 3);
+      return "Unknown";
+      // return dayOfTheWeek.substring(0, 3);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  .pickup {
-    cursor: pointer;
-  }
-
   section {
     .columns {
       .column {

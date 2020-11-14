@@ -14,7 +14,6 @@ const actions = {
         }
       }
     );
-    console.log("[rooddddt]", products);
     commit(SET_STORE_PRODUCTS, products);
   } 
 };

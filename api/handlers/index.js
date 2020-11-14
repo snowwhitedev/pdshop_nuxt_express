@@ -178,16 +178,9 @@ exports.handleCreatePickup = async (req, res) => {
 exports.handleCreateMDPickup = async (req, res) => {
   try {
     req.body.location = JSON.stringify(req.body.location);
-    const validProperties = {...req.body};
-    delete validProperties.days_of_week;
-    const reqRows = req.body.days_of_week.map((day) => {
-      return {
-        ...validProperties,
-        day_of_week: day.toLowerCase()
-      }
-    })
-    const pickups = await createMDPickup(reqRows);
-    return res.status(200).json(pickups);
+    req.body.days_of_week = JSON.stringify(req.body.days_of_week);
+    const pickup = await createPickup(req.body);
+    return res.status(200).json({ pickup });
   } catch (error) {
     return res.status(500).json({ error: 'Internal Error' + error });
   }

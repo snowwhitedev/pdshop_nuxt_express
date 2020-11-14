@@ -1,5 +1,8 @@
 const Joi = require('@hapi/joi');
+
 const { USERS_TYPES } = require('../../nuxt.config').privateRuntimeConfig;
+// import { WEEK_DAYS } from "../../store/contants"; 
+const { WEEK_DAYS } = require('../../store/contants');
 
 exports.validateUsersRegisterAuth = async (req, _res, next) => {
   // validate email and password
@@ -194,3 +197,45 @@ exports.validatePaginationQueryArgs = async (req, _, next) => {
     return next(error);
   }
 };
+
+exports.validatePickupQueryArgs = async (req, _, next) => {
+  // validate limit and offset
+  // return next();
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    store_id: Joi.number().integer().required()
+  }).unknown(true);
+
+  //validate days_of_week
+  const validateDaysOfWeek = (items) => {
+    if (items.length === 0) {
+      return false;
+    }
+    const selectedDays = [];
+    for (const item of items) {
+      if (!item.day_of_week || !WEEK_DAYS.includes(item.day_of_week)) {
+        return false;
+      }
+      selectedDays.push(item.day_of_week);
+    }
+    const daySet = new Set(selectedDays);
+    if (selectedDays.length != daySet.size) {
+      return false;
+    }
+    return true;
+  }
+
+  try {
+    await schema.validateAsync(req.body);
+    if (!validateDaysOfWeek(req.body.days_of_week)) {
+      return next(Error({ message: 'Days of week error'}));
+    }
+    return next();
+  } catch (error) {
+    req.log.error(error);
+    return next(error);
+  }
+};
+

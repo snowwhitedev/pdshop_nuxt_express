@@ -62,7 +62,7 @@
                 <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
               </svg>
             </div>
-            <div class="select-none cursor-pointer">
+            <div class="select-none cursor-pointer weekdays">
               {{ wd }}
             </div>
           </label>
@@ -118,5 +118,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.weekdays {
+  text-transform: capitalize;
+}
 </style>
