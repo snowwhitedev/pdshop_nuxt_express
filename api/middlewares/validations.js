@@ -203,33 +203,23 @@ exports.validatePickupQueryArgs = async (req, _, next) => {
     name: Joi.string().required(),
     title: Joi.string().required(),
     description: Joi.string().required(),
-    store_id: Joi.number().integer().required()
+    store_id: Joi.number().integer().required(),
+    days_of_week: Joi.array().items(
+      Joi.object({
+        day_of_week: Joi.string(),
+        start_time: Joi.string(),
+        end_time: Joi.string()
+      })
+    ).has(
+      Joi.object({
+        day_of_week: Joi.string().valid(...WEEK_DAYS),
+        start_time: Joi.string(),
+        end_time: Joi.string()
+      })
+    )
   }).unknown(true);
-
-  //validate days_of_week
-  const validateDaysOfWeek = (items) => {
-    if (items.length === 0) {
-      return false;
-    }
-    const selectedDays = [];
-    for (const item of items) {
-      if (!item.day_of_week || !WEEK_DAYS.includes(item.day_of_week)) {
-        return false;
-      }
-      selectedDays.push(item.day_of_week);
-    }
-    const daySet = new Set(selectedDays);
-    if (selectedDays.length != daySet.size) {
-      return false;
-    }
-    return true;
-  }
-
   try {
     await schema.validateAsync(req.body);
-    if (!validateDaysOfWeek(req.body.days_of_week)) {
-      throw Error({ message: `Unkown day of the week, can be only one of ${WEEK_DAYS}`});
-    }
     return next();
   } catch (error) {
     req.log.error(error);

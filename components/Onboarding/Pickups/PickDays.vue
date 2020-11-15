@@ -102,12 +102,12 @@ export default {
     selectedDays: {
       handler() {
         this.$emit('input', this.selectedDays);
-        const set1 = new Set(this.selectedDays);
-        if (set1.size === this.weekDays.length) {
+        const daySet = new Set(this.selectedDays);
+        if (daySet.size === this.weekDays.length) {
           this.allSelected = true;
           this.selectAllText = 'Clear All'
         }
-        if (set1.size === 0) {
+        if (daySet.size === 0) {
           this.allSelected = false;
           this.selectAllText = 'Select All'
         }
