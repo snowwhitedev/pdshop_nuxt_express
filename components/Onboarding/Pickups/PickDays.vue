@@ -79,6 +79,10 @@ export default {
     value: {
       type: Array,
       default: () => []
+    },
+    initDays: {
+      type: Array,
+      default: () => []
     }
   },
   data: () => ({
@@ -87,6 +91,7 @@ export default {
     selectAllText: 'Select All',
     allSelected: false
   }),
+ 
   methods: {
     selectAll () {
       this.allSelected = !this.allSelected;
@@ -113,6 +118,15 @@ export default {
         }
       },
       deep: true
+    },
+    initDays: {
+      handler() {
+        if (this.initDays.length > 0) {
+          this.selectedDays = this.value.map((item) => item);
+        }
+      },
+      deep: true,
+      immediate: true
     }
   }
 };

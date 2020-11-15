@@ -460,7 +460,6 @@ export default {
     async addPickup () {
       this.isLoading = true;
       const validate = this.validateFormFields();
-
       if (validate) {
         try {
         // set pickup to all products if no product is set
@@ -478,7 +477,7 @@ export default {
             }
           });
           await this.$axios.post(
-            `/onboarding/stores/${this.storeId}/mdpickups`,
+            `/onboarding/stores/${this.storeId}/pickups`,
             this.form, {
               headers: {
                 'x-access-token': this.token

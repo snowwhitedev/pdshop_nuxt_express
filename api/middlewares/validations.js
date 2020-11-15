@@ -220,8 +220,10 @@ exports.validatePickupQueryArgs = async (req, _, next) => {
   }).unknown(true);
   try {
     await schema.validateAsync(req.body);
+    console.log("[validate pass]");
     return next();
   } catch (error) {
+    console.log("[validate error]");
     req.log.error(error);
     return next(error);
   }

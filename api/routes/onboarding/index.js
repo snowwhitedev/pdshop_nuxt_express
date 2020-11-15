@@ -148,7 +148,7 @@ router.post(
 
 //create mutiple days pickups
 router.post(
-  '/stores/:store_id/mdpickups',
+  '/stores/:store_id/pickups',
   isUserMerchantOnStore,
   validatePickupQueryArgs,
   handleCreatePickup
@@ -158,6 +158,7 @@ router.post(
 router.put(
   '/stores/:store_id/pickups/:pickup_id',
   isUserMerchantOnStore,
+  validatePickupQueryArgs,
   handleUpdatePickupRecord
 );
 
