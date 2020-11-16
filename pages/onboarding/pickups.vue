@@ -188,7 +188,12 @@
                     aria-role="dialog"
                     aria-modal
                   >
-                    <pickup-edit-form :pickup="pickupObj" :products="products"  @updateLocalStorage="updateLocalStorage" />
+                    <pickup-edit-form
+                      :pickup="pickupObj"
+                      :products="products" 
+                      @updateLocalStorage="updateLocalStorage"
+                      @close="makeModal = false"
+                    />
                   </b-modal>
                 </div>
               </client-only>
@@ -349,6 +354,7 @@ export default {
     toggleState() {
       this.showPickupForm = !this.showPickupForm;
     },
+
     async openModal(pickup_id) {
       const { data: { pickup } } = await this.$axios.get(`/shop/pickups/${pickup_id}`, {
         headers: {

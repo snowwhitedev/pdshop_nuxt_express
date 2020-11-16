@@ -502,7 +502,7 @@ export default {
 
         // update localStorage after updating item
         this.$emit('updateLocalStorage');
-        this.makeModal = false;
+        this.$emit('close');
         this.isLoading = false;
         this.maxVal = "";
         this.minVal = "";

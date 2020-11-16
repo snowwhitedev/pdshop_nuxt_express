@@ -202,7 +202,6 @@ exports.handleUpdatePickupRecord = async (req, res) => {
   try {
     req.body.location = JSON.stringify(req.body.location);
     req.body.days_of_week = JSON.stringify(req.body.days_of_week);
-    console.log("[xxxxx]", pickup_id, req.body);
     const pickup = await updatePickupRecord(pickup_id, req.body);
     return res.status(200).json({ pickup });
   } catch (error) {

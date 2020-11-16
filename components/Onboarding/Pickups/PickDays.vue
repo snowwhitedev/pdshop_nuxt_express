@@ -121,9 +121,7 @@ export default {
     },
     initDays: {
       handler() {
-        if (this.initDays.length > 0) {
-          this.selectedDays = this.value.map((item) => item);
-        }
+        this.selectedDays = this.value.map((item) => item);
       },
       deep: true,
       immediate: true

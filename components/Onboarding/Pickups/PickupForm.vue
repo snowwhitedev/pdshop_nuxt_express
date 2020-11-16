@@ -258,7 +258,7 @@
               aria-role="dialog"
               aria-modal
             >
-              <pick-days v-model="selectedDays" @close="showWeekdays = !showWeekdays" />
+              <pick-days v-model="selectedDays" :initDays="initDays" @close="showWeekdays = !showWeekdays" />
             </b-modal>
             <div class="col-span-6 flex flex-row w-full justify-between px-3">
               <div class="w-full">
@@ -370,7 +370,8 @@ export default {
     errorMessage: '',
     isLoading: false,
     incomplete: false,
-    selectedDays: []
+    selectedDays: [],
+    initDays: []
   }),
   computed: {
     ...mapState(['token']),
@@ -488,6 +489,7 @@ export default {
           this.$emit('updateLocalStorage');
           this.isLoading = false;
           this.error = false;
+          this.$emit('ontoggle');
           return this.$buefy.notification.open({
             duration: 2000,
             closable: false,
@@ -507,6 +509,7 @@ export default {
           this.form.description = '';
           this.form.days_of_week = [];
           this.selectedDays = [];
+          this.initDays = [];
           this.form.start_time = '';
           this.form.end_time = '';
           this.form.location.zip = '';
